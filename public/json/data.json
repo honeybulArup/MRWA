@@ -1,0 +1,21 @@
+[
+  {
+    "Lat": -31.984677846321468, 
+    "image": "images/highway.jpg", 
+    "Long": 115.90312259208133,
+    "type": "Image"
+  }, 
+  {
+    "Lat": -32.0293131, 
+    "video": "video/Highway.mp4", 
+    "Long": 115.960817,
+    "type": "Video"
+  }, 
+  {
+    "Lat": -32.0465304, 
+    "description": "Could potentially add an extra lane at this location", 
+    "Long": 115.9737918, 
+    "cost": "$40,000",
+    "type": "Text"
+  }
+]

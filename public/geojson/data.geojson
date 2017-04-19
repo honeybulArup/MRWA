@@ -1,0 +1,48 @@
+{
+  "type": "FeatureCollection", 
+  "features": [
+    {
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [
+          115.90312259208133, 
+          -31.984677846321468
+        ]
+      }, 
+      "type": "Feature", 
+      "properties": {
+        "image": "images/highway.jpg", 
+        "type": "Image"
+      }
+    }, 
+    {
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [
+          115.960817, 
+          -32.0293131
+        ]
+      }, 
+      "type": "Feature", 
+      "properties": {
+        "video": "video/Highway.mp4", 
+        "type": "Video"
+      }
+    }, 
+    {
+      "geometry": {
+        "type": "Point", 
+        "coordinates": [
+          115.9737918, 
+          -32.0465304
+        ]
+      }, 
+      "type": "Feature", 
+      "properties": {
+        "cost": "$40,000", 
+        "type": "Text", 
+        "description": "Could potentially add an extra lane at this location"
+      }
+    }
+  ]
+}

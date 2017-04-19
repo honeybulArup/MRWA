@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset='utf-8' />
+    <title></title>
+    <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.34.0/mapbox-gl.css' rel='stylesheet' />
+    <link href='stylesheets/main.css' rel='stylesheet' />
+</head>
+<body>
+
+<div id='map'></div>
+
+<script>
+
+    mapboxgl.accessToken = 'pk.eyJ1IjoiaG9uZXlidWxhcnVwIiwiYSI6ImNqMTRwYXR6cDAwZjYyd210OGplNWtxZ3QifQ.sBdd5Z2Y0D-2fkALbI59AQ';
+    var lngInit    = -32.022350764232414;
+    var latInit    = 115.95777724823802;
+    var zmInit     = 10.772319896141763;
+
+    var map = new mapboxgl.Map({
+        container:  'map',
+        style:     'mapbox://styles/mapbox/streets-v9',
+        center:     [latInit, lngInit],
+        zoom:       zmInit
+    });
+
+    map.on('load', function(){
+
+        var iconSize = 1.5
+
+         map.addLayer({
+            "id": "points-videos",
+            "type": "symbol",
+            "filter": ["all", ["==", "type", "Video"]],
+            "source": {
+                "type": "geojson",
+                "data": "geojson/data.geojson"
+            },
+            "layout": {
+                'icon-image': 'cinema-15',
+                'icon-allow-overlap': true,
+                'icon-size': iconSize
+
+            }
+         });
+          map.addLayer({
+            "id": "points-images",
+            "type": "symbol",
+            "filter": ["all", ["==", "type", "Image"]],
+            "source": {
+                "type": "geojson",
+                "data": "geojson/data.geojson"
+            },
+            "layout": {
+                'icon-image': 'attraction-15',
+                'icon-allow-overlap': true,
+                'icon-size': iconSize
+
+            }
+         });
+          map.addLayer({
+            "id": "points-recommendations",
+            "type": "symbol",
+            "filter": ["all", ["==", "type", "Text"]],
+            "source": {
+                "type": "geojson",
+                "data": "geojson/data.geojson"
+            },
+            "layout": {
+                'icon-image': 'information-15',
+                'icon-allow-overlap': true,
+                'icon-size': iconSize
+
+            }
+         });
+       
+    })
+
+    map.on('click', function(e) {
+
+        var features = map.queryRenderedFeatures(e.point, { layers: ['points-videos', 'points-images', 'points-recommendations'] });
+
+        var feature = features[0]
+
+        if(feature != undefined){
+            var properties = feature.properties
+
+            popContent = ""
+
+            if(properties.video != undefined){
+                popContent += '<video width="400px" controls><source src="video/Highway.mp4" type="video/mp4"></video>' 
+            }
+            if(properties.image != undefined){
+                popContent += '<img src=' + properties.image + '>'
+            }
+            if(properties.description != undefined){
+                popContent = "<p>Description: " + properties.description + "<hr>Estimated Costing: " + properties.cost + "</p>"
+            }
+
+            console.log(popContent)
+
+            var popup = new mapboxgl.Popup()
+                .setLngLat(feature.geometry.coordinates)
+                .setHTML(popContent)
+                .addTo(map)
+            
+        }
+    })
+
+        
+</script>
+
+</body>
+</html>
